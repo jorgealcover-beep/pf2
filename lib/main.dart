@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pf2/screens/home_screen.dart';
+import 'package:pf2/screens/personal_screen.dart';
+import 'package:pf2/screens/widget_screen.dart';
 
 void main(){
     runApp(const MyApp());
@@ -11,16 +13,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Practica Final 2',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Color(0xFF5b8c6e),
-            brightness: Brightness.light,
-            ),
-        ),
-        home: HomePage(),
+      debugShowCheckedModeBanner: false,
+      title: 'Practica Final 2',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color(0xFF9FCFFA),
+          brightness: Brightness.light,
+          ),
+      ),
+      routes:{
+        '/': (context) => const HomePage(),
+        '/personal': (context) => const PersonalScreen(),
+        'widget': (context) => const WidgetScreen(),
+      },
+      initialRoute: '/',
     );
   }
 }
