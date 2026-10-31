@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatelessWidget{
   const HomePage({super.key});
-
+  static Persona persona = new Persona('Jorge', 'Alcover', 'jorgealcover@paucasesnovescifp.cat','contrasenya1234', DateTime(2004, 07, 11));
     @override
     Widget build(BuildContext context){
       return Scaffold(
@@ -13,13 +14,33 @@ class HomePage extends StatelessWidget{
           body: Column( 
             crossAxisAlignment: CrossAxisAlignment.start,
             children:[
-              profileCard()]
+              profileCard(persona),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: (){
+                      Navigator.pushNamed(context, '/personal');
+                    },
+                    child: Text('Edit profile'),
+                  ),
+                  SizedBox(width: 16.0),
+                  ElevatedButton(
+                    onPressed: (){
+                      Navigator.pushNamed(context, '/widget');
+                    },
+                    child: Text('Widgets'),
+                  ),
+                ]
+              ),
+            ],
           ),
-      );
+              
+        );
     }      
 }
 
-Widget profileCard(){
+Widget profileCard(Persona persona){
   return Card(
     margin: EdgeInsets.all(16.0),
     color: Color.fromARGB(255, 250, 200, 159),
@@ -33,7 +54,7 @@ Widget profileCard(){
               Icon(Icons.person, color: Colors.black),
               SizedBox(width: 8.0),
               Text(
-                'Jorge Alcover Escanero',
+                '${persona.name} ${persona.lastName}',
                 style: TextStyle(
                   fontSize: 16.0,
                 ),
@@ -46,7 +67,7 @@ Widget profileCard(){
             children: [
               Icon(Icons.email, color: Colors.black),
               SizedBox(width: 8.0),
-              Text('jorgealcover@paucasesnovescifp.cat',
+              Text(persona.emailAdress,
               style: TextStyle(
                 fontSize: 13.0,
                 color: Colors.grey[600],
@@ -58,7 +79,7 @@ Widget profileCard(){
           Row(children: [
             Icon(Icons.calendar_month, color: Colors.black),
             SizedBox(width: 8.0),
-            Text('Fecha de nacimiento: 11/07/2004',
+            Text(DateFormat('dd/MM/yyyy').format(persona.birthDate),
               style: TextStyle(
                 fontSize: 13.0,
                 color: Colors.grey[600],
@@ -69,4 +90,14 @@ Widget profileCard(){
       ),
     ),
   );
+}
+
+class Persona{
+  late String name;
+  late String lastName;
+  late String emailAdress;
+  late String password;
+  late DateTime birthDate;
+
+  Persona(this.name, this.lastName, this.emailAdress, this.password, this.birthDate);
 }
