@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
           ),
       ),
       routes:{
-        '/': (context) => const HomePage(),
-        '/personal': (context) => const PersonalScreen(),
+        '/': (context) =>  HomePage(),
+        '/personal': (context) => PersonalScreen(persona: HomePageState.persona),
         '/widget': (context) => const WidgetScreen(),
       },
       initialRoute: '/',
