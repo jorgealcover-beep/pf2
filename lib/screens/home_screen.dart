@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pf2/screens/personal_screen.dart';
 
-class HomePage extends StatelessWidget{
+class HomePage extends StatefulWidget{
   const HomePage({super.key});
+  
+  @override
+  State<HomePage> createState()=> HomePageState();
+}
+
+class HomePageState extends State<HomePage>{
   static Persona persona = new Persona('Jorge', 'Alcover', 'jorgealcover@paucasesnovescifp.cat','contrasenya1234', DateTime(2004, 07, 11));
     @override
     Widget build(BuildContext context){
@@ -19,8 +26,18 @@ class HomePage extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/personal');
+                    onPressed: () async {
+                      final result = await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => PersonalScreen(persona: persona),
+                        ),
+                      );
+
+                      if (result != null && result is Persona) {
+                        setState(() {
+                          persona = result;
+                        });
+                      }
                     },
                     child: Text('Edit profile'),
                   ),
@@ -28,6 +45,7 @@ class HomePage extends StatelessWidget{
                   ElevatedButton(
                     onPressed: (){
                       Navigator.pushNamed(context, '/widget');
+
                     },
                     child: Text('Widgets'),
                   ),
